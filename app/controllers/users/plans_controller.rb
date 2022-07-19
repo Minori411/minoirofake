@@ -28,9 +28,8 @@ module Users
     end
 
     def show
-      @plan = Plan.find(params[:id])
-      @smallplam = Smallplan.find(params[:id])
-      @user = User.find(@plan.user_id)
+      @user = User.find(params[:user_id])
+      @plan = @user.plans.first
       @article = @plan.user.articles.order(created_at: :desc)
       @reviews = @user.reviews.order("created_at DESC")
       @relationship = Relationship.find_by(id: params[:id])
@@ -98,8 +97,8 @@ module Users
 
     def destroy
       @plan = Plan.find(params[:id])
-      @plan.destroy
-      redirect_to plans_path
+      @plan.smallplans.destroy
+      redirect_to user_plans_path
     end
 
     private

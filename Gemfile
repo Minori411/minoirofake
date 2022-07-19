@@ -11,9 +11,9 @@ gem 'mini_racer'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+gem 'propshaft'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
+gem 'jsbundling-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bcrypt'
+gem 'cssbundling-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
@@ -41,9 +42,12 @@ gem 'rmagick'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rails-i18n'
-gem "puma_worker_killer"
 gem 'derailed'
 gem 'pry-nav'
+gem 'comixins'
+gem 'net-imap'
+gem 'net-pop'
+gem 'net-smtp'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

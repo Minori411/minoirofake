@@ -1,5 +1,7 @@
 FROM ruby:3.1.2
 RUN apt-get update -qq && apt-get install -y nodejs
+ARG RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
 
 # yarnパッケージ管理ツールをインストール
 # https://classic.yarnpkg.com/en/docs/install/#debian-stable
@@ -12,7 +14,11 @@ WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
+COPY package.json /myapp/package.json
+COPY package-lock.json /myapp/package-lock.json
+# RUN yarn install
 COPY . /myapp
+# RUN RAILS_ENV=production SECRET_KEY_BASE=1 bundle exec rails assets:precompile
 
 # Add a script to be executed every time the container starts
 COPY entrypoint.sh /usr/bin/
@@ -23,3 +29,4 @@ ENV TZ Asia/Tokyo
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
+
