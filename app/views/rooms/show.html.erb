@@ -4,8 +4,8 @@
         <h1>メッセージ</h1>
         <div class="v-app memberMainContents m-b3">
             <div>
-                <%= link_to user_profiles_path(@user.id), class: "text_link bold" do %>
-                <%= ("#{User.find(@another_entry.user_id ).name}") %>
+                <%= link_to user_profiles_path(@another_entry.user_id), class: "text_link bold" do %>
+                <%= ("#{User.find(@another_entry.user_id).name}") %>
                 <% end %>
                 さんに
                 <strong>メッセージを送信する</strong>
@@ -44,16 +44,15 @@
         
 
   <div class="chats">
-  <div class="chat">
+  <div class="chatt">
     <% if @messages.present? %>
       <% @messages.each do |m| %>
         <div class="chat-box">
         <% if user_signed_in? && current_user.id != @message.user_id %>
-        <td><%= link_to "編集", edit_message_path(m.id) %></td>
         <td><%= link_to "削除", message_path(m.id), method: :delete %></td>
         <% end %>
           <div class="chat-face">
-          <img src="<%= @user.image %>",class= "resize125",width="20px" height= "20px", style= "border-radius: 50%;">
+          <img src="<%= m.user.image %>",class= "resize125",width="20px" height= "20px", style= "border-radius: 50%;">
           <%= m.user.name %>
             <br>
             <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>

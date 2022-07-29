@@ -5,15 +5,17 @@
             <div id="side" class="smt pc">
 
                 <div class="gray">
-                    <a href="#">
-                    <div class="wborder">
-                    <img src="<%= @user.image %>",class= "resize125",width="125px" height= "125px", style= "border-radius: 50%;">
-                    </div>
-                    </a>
-                    <p class="name">
-                        <a href="#" class="link"></a>
+                    <%= link_to user_profiles_path(@plan.user_id) do %>
+                        <div class="wborder">
+                        <img src="<%= @user.image %>",class= "resize125",width="125px" height= "125px", style= "border-radius: 50%;">
+                        </div>
+                    <% end %>
+                    <p class="name-p">
+                        <%= link_to user_profiles_path(@plan.user_id) do %>
+                            <%= @user.name %>
+                        <% end %>
                     </p>
-                    <a href="#" class="color">
+                    <a class="color">
                         <%= link_to "もっと詳しく",user_profiles_path(@plan.user_id)%>
                     </a>
                     <div class="followbox">
@@ -37,7 +39,7 @@
                             <div class="w50p">
                                 <div class="title">返信率</div>
                                 <div class="reply">
-                                    <span class="bold">99%</span>
+                                    <span class="bold">90%</span>
                                 </div>
                             </div>
                             <div class="w30p"></div>
@@ -64,7 +66,7 @@
                         <i class="fas fa-check-circle link"></i>
                         秘密保持契約(NDA)
                     </div>
-                    <div class="m-b2 FollowArea">
+                    <div class="FollowArea">
                         <div class="FollowArea_sub m-b1">フォローして後でチェック</div>
                         <%= render "plans/follow_form" %>
                     </div>
@@ -86,10 +88,10 @@
                         <div class="icon_money">料金</div>
                         <div class="right"><%= @min_price %>円〜</div>
                     </div>
-                    <div class="m-b2 SideMessageArea">
+                    <div class="SideMessageArea">
                     <% unless @user.id == current_user.id %>
                     <% if @is_room == true %>
-                        <p class="user-show-room"><a href="/rooms/<%= @room_id %>" class="btn btn-primary btn-lg w-100">チャットへ2</a>
+                        <p class="user-show-room"><a href="/rooms/<%= @room_id %>" class="btn btn-primary btn-lg w-100">チャットへ</a>
                     <% else %>
                         <%= form_for @room do |f| %>
                         <%= fields_for @entry do |e| %>
@@ -101,9 +103,6 @@
                 <% end %>
                     </div>
                 </div>
-                <div class="m-b1 ReportArea m-t1">
-                    <label for="modal-trigger_report">通報する</label>
-                </div>
                 <div class="sideMessageArea_sub">このプランをシェアしよう!</div>
                 <div class="side_sns">
                 <%= link_to "https://twitter.com/share?url=#{ request.url }&text=【拡散しよう】%0a%0a#{ @user.twitter }/&hashtags=みのいろ", target: '_blank' do %>
@@ -113,19 +112,26 @@
             </div>
             <div id="main" class="no_br">
             <% if user_signed_in? && current_user.id == @plan.user_id %>
-                <td><%= link_to "編集", edit_plan_path(@plan.id,anchor: "js-plan") %></td>
-                <td><%= link_to "削除", user_plan_path(@plan.id) %></td>
+                <td><%= link_to "編集", edit_plan_path(@user.id,anchor: "js-plan") %></td>
+                <td><%= link_to "削除", user_plan_path(@user.id,@smallplan.id), method: :delete %></td>
 
             <% end %>
             <div class="boxbaseP30">
             <div>
-            <h1><%= @plan.smallplans.first.plan_name %></h1>
+            <h1><%= @smallplan.plan_name %></h1>
             <div class="plan_price">
-            <span style="font-size: 1rem;"><%= @plan.smallplans.first.price %>円/回</span>
+            <span style="font-size: 1rem;"><%= @smallplan.price %>円/回</span>
             </div>
             </div>
             <div>
-            <div class="markdown-body"><%= @plan.smallplans.first.plan_detail %></div>
+            <div class="video&chat">
+            <% if @smallplan.video == 1 %>
+                ビデオ
+            <% elsif @smallplan.chat == 1 %>
+                チャット
+            <% end %>
+            </div>
+            <div class="markdown-body"><%= @smallplan.plan_detail %></div>
             </div>
             <div id="vapp">
             <div class="p-entry flexbox">
@@ -136,16 +142,17 @@
             <div id="side" class="smt sm">
             <div class="gray">
                 <a href="#">
-                    <div class="icon size125 wborder"></div>
+                    <div class="wborder">
+                    <img src="<%= @user.image %>",class= "resize125",width="125px" height= "125px", style= "border-radius: 50%;">
+                    </div>
                 </a>
-                <p class="status m-t05 alignCenter">相談できます</p>
-                <p class="name">
-                    <a href="#" class="link">
-                        <span class="name_text">林みのり</span>
+                <p class="name-p">
+                    <%= link_to user_profiles_path(@user.id) do %>
+                        <%= @user.name %>
+                    <% end %>
                 </p>
                 <div class="sns-icon">
                     <a href="#" target="_blank" class="m-r1">
-                    <i class="fa fa-twitter"></i>
                     </a>
                 </div>
                 <p class="time_stamp">
@@ -167,31 +174,21 @@
                     <i class="fa fa-check-circle link"></i>
                     秘密保持契約（NDA）
                 </div>
-                <div class="m-b2 FollowArea">
-                フォローボタン
-                </div>
                 <div class="hyouka_box">
                     <div class="icon_heart">評価</div>
                     <div class="right">
-                        <span class="review-icon">
-                        <i class="fa fa-star"></i>
-                        </span>
-                        <span class="review-icon">
-                        <i class="fa fa-star"></i>
-                        </span>
-                        <span class="review-icon">
-                        <i class="fa fa-star"></i>
-                        </span>
-                        <span class="review-icon">
-                        <i class="fa fa-star"></i>
-                        </span>
-                        <span class="review-icon">
-                        <i class="fa fa-star"></i>
-                        </span>
-                        <span class="no-bold">(203)</span>
+                    <div class="average-score mb-3">
+                    <div class="star-rating ml-2">
+                    <div class="star-rating-front" style="width: <%= @avg_score_percentage %>%">★★★★★</div>
+                    <div class="star-rating-back">★★★★★</div>
+                    </div>
+                    <div class="average-score-display">
+                    （<%= @avg_score %>点）
+                    </div>
+                    </div>
                     </div>
                     <div class="icon_money">料金</div>
-                    <div class="right">1000円〜</div>
+                    <div class="right"><%= @min_price %>円〜</div>
                 </div>
                 <div class="SideMessageArea">
                 <a class="waves-effect waves-light btn">メッセージで相談</a>

@@ -3,14 +3,13 @@
 <div class="userProfileHeader">
 <div class="userProfileHeader_inner flexbox">
     <div class="userProfileHeader_icon">
-        <div class="icon wborder">
+        <div class="wborder">
         <img src="<%= @user.image %>",class= "resize125",width="125px" height= "125px", style= "border-radius: 50%;">
         </div>
     </div>
     <div class="userProfileHeader_name">
         <div class="name">
             <h1><%= @user.name %></h1>
-            <div class="snsicon"></div>
         </div>
     </div>
 </div>
@@ -18,7 +17,7 @@
 <div class="userProfile">
 <div class="inner">
     <div class="userProfile_Main">
-        <div class="scoreBox customer_summary m-b2 column_3">
+        <div class="scoreBox customer_summary column_3">
             <div class="flexbox scoreBox_wrap">
             <div class="scoreStatus contract_manage review">
                             <span class="scoreStatus_label">評価</span>
@@ -26,7 +25,7 @@
                             <div class="average-score mb-3">
                             <div class="star-rating ml-2">
                             <div class="star-rating-front" style="width: <%= @avg_score_percentage %>%">★★★★★</div>
-                            <div class="star-rating-back">★★★★</div>
+                            <div class="star-rating-back">★★★★★</div>
                             </div>
                             </div>
                             </span>
@@ -34,7 +33,7 @@
                         <div class="scoreStatus contract_manage response">
                             <span class="scoreStatus_label">返信率</span>
                             <span class="scoreStatus_score">
-                                100
+                                90
                                 <small>%</small>
                             </span>
                         </div>
@@ -113,12 +112,6 @@
                         <div class="plan_detail_markdown_over nobefore" style="max-height: none;">
                             <p><%= @user.introduction%></p>
                         </div>
-                        <div class="alignCenter" style="display: none;">
-                            <a href="#" class="link more-btn">
-                                <i class="fa fa-angle-down"></i>
-                                もっとみる
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -183,15 +176,15 @@
 <div class="userProfileSide">
 <div class="block-profile">
 <% if user_signed_in? && @user.id != current_user.id %>
-    <div id="follow_form">
+    <div id="follow_form", class="follow_bottom">
         <% if current_user.following?(@user) %>
         <%= form_for(current_user, url: user_relationship_path(@user.id,@relation.id), method: :delete, remote: true) do |f| %>
-            <%= f.submit "フォロー解除", class: "btn longer" %>
+            <%= f.submit "フォロー解除", class: "btn w-100" %>
         <% end %>
         <% else %>
         <%= form_for(current_user, url: user_relationships_path(@user.id), method: :post, remote: true) do |f| %>
             <%= hidden_field_tag :following_id, @user.id %>
-            <%= f.submit "フォローする", class: "btn longer" %>
+            <%= f.submit "フォローする", class: "btn w-100" %>
         <% end %>
         <% end %>
     </div>
@@ -204,7 +197,7 @@
     <%= fields_for @entry do |e| %>
         <%= e.hidden_field :user_id, value: @user.id %>
     <% end %>
-    <%= f.submit "メッセージを送る", class:"btn btn-primary btn-lg user-show-chat side-bar-message"%>
+    <%= f.submit "メッセージを送る", class:"btn btn-primary btn-lg side-bar-message w-100"%>
     <% end %>
 <% end %>
 <% end %>            

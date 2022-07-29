@@ -136,7 +136,8 @@
 
 .average-score {
     display: flex;
-    justify-content: center;
+    text-align: cetner;
+    overflow: visible;
   }
   
   .star-rating {
@@ -144,6 +145,7 @@
     width: 5em;
     height: 1em;
     font-size: 17px;
+    overflow: visible;
   
   }
   .star-rating-front {
@@ -157,6 +159,7 @@
     background: linear-gradient(241.35deg,#ffe895 9.83%,#cc9300 81.66%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    overflow: visible;
   }
   .star-rating-back {
     color: #ccc;
@@ -185,7 +188,7 @@
   }
   
   .like-btn-unlike {
-    font-size: 1em;
+    font-size: 18px;
     color: #ff6e00!important;
   }
 
@@ -205,7 +208,7 @@
 }
 
 .img_user{
-    width: 80px;
+    width: 125px;
     height: 125px;
 }
 

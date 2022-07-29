@@ -7,6 +7,13 @@ module Users
       @plans = @user.plans
       @article = @user.articles.order(created_at: :desc)
       @reviews = @user.reviews.order("created_at DESC")
+      if @reviews.present?
+        @avg_score = @reviews.average(:evaluation).present? ? @reviews.average(:evaluation).round(2) : 0
+        @avg_score_percentage = @reviews.average(:evaluation).round(1).to_f * 100 / 5
+      else
+        @avg_score = 0
+        @avg_score_percentage = 0
+      end
       @current_entry = Entry.where(user_id: current_user.id)
       @another_entry = Entry.where(user_id: @user.id)
       @room = Room.new
@@ -28,9 +35,9 @@ module Users
     end
 
     def show
+      @user = User.find(params[:user_id])
       @plan = Plan.find(params[:id])
-      @smallplam = Smallplan.find(params[:id])
-      @user = User.find(@plan.user_id)
+      @smallplan = Smallplan.find(params[:id])
       @article = @plan.user.articles.order(created_at: :desc)
       @reviews = @user.reviews.order("created_at DESC")
       @relationship = Relationship.find_by(id: params[:id])
@@ -38,6 +45,7 @@ module Users
       if @reviews.present?
         @avg_score = @reviews.average(:evaluation).present? ? @reviews.average(:evaluation).round(2) : 0
         @avg_review = @plan.user.reviews.average(:evaluation).round(2)
+        @avg_score_percentage = @reviews.average(:evaluation).round(1).to_f * 100 / 5
       else
         @avg_score = 0
         @avg_score_percentage = 0
@@ -83,13 +91,14 @@ module Users
     end
 
     def update
+      @user = User.find(params[:user_id])
       @plan = Plan.find(params[:id])
       @plan.assign_attributes(plan_params)
       @plan.user_id = current_user.id
       @plan.smallplans.map { |smallplan| smallplan.user_id = current_user.id }
       if @plan.save!
         logger.debug("成功")
-        redirect_to user_plans_path(@plan.id)
+        redirect_to user_plans_path(@user.id)
       else
         logger.debug("失敗")
         render :edit
@@ -97,9 +106,9 @@ module Users
     end
 
     def destroy
-      @plan = Plan.find(params[:id])
-      @plan.destroy
-      redirect_to plans_path
+      @smallplan = Smallplan.find(params[:id])
+      @smallplan.destroy
+      redirect_to user_plans_path(params[:user_id])
     end
 
     private
@@ -108,7 +117,7 @@ module Users
       params.require(:plan)
             .permit(
               :title, :can_do, :youtube,
-              :body, :status, :consent,
+              :body,
               smallplans_attributes: [:id,
                                       :plan_name, :price, :plan_detail,
                                       :video, :chat]

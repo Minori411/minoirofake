@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :user_select_bottles, dependent: :destroy
   has_many :plans, dependent: :destroy
+  has_many :reviewees, foreign_key: "reviewee_id", class_name: "Review", dependent: :destroy
+  # validates :plans, numericality: { in: 1..2}
   has_many :contracts, dependent: :destroy
   has_many :customer_contracts, foreign_key: "customer_id", class_name: "Contract", dependent: :destroy
   has_many :smallplans, dependent: :destroy
@@ -34,8 +36,10 @@ class User < ApplicationRecord
   end
 
   def self.search(keyword)
-    where(["title like? OR name like? OR body like?OR can_do like? OR status like? OR consent like? OR plan_name like? OR plan_detail like?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%",
-           "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"])
+    where(["title like? OR name like? OR body like?OR can_do like? OR plan_name like? OR plan_detail like?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%",
+           "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"])
+
+   
   end
 
   # フォローしているかを確認するメソッド

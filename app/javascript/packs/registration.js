@@ -1,6 +1,18 @@
 document.addEventListener("turbolinks:load", function () {
-$('.icon_eye').click(event => {
-    const input = $(event.target).parent().find('input')[0];
-    input.type = input.type == 'text' ? 'password' : 'text';
-})
-})
+    $('.icon_eye').click(function (e) {
+
+        let target_id = $(this).data('target-element');
+        let element = $("#" + target_id);
+
+        if (element.attr('type') === 'password') {
+            element.attr('type', "text");
+            $(this).addClass("fa-eye-slash");
+        } else {
+            element.attr('type', "password");
+            $(this).removeClass("fa-eye-slash");
+        }
+    })
+});
+
+
+

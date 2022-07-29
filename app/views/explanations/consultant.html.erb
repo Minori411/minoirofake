@@ -15,22 +15,16 @@
             <h2 class="tokuchou">みのいろの特徴</h2>
             <div class="about_service_list flexbox">
                 <div class="about_service_list_item">
-                <i class="large material-icons comment">comment</i>
                     <p class="about_service_list_item_head">内容・料金を自由に設定</p>
                     <p class="about_service_list_item_body">
                         料金は最低1000円(単発)から。内容はカップルコンサルなど自由に設定できます。
                     </p>
                 </div>
                 <div class="about_service_list_item">
-                <i class="large material-icons access_time2">access_time</i>
-                <i class="large material-icons add2">add</i>
-                <i class="large material-icons attach_money2">attach_money</i>
-
                     <p class="about_service_list_item_head">スキマ時間を有効活用</p>
                     <p class="about_service_list_item_body">空いた時間を無駄にすることなく収入アップが見込めます。</p>
                 </div>
                 <div class="about_service_list_item">
-                <i class="large material-icons mood">mood</i>
                     <p class="about_service_list_item_head">デビュー前に</p>
                     <p class="about_service_list_item_body">
                         新米カラーコンサルタントのデビュー前に練習の場としてお使いいただけます。
@@ -91,18 +85,9 @@
                         <p>契約したらみのいろ内のメッセージ機能やzoom、またはカフェなどでカラーコンサルティングしましょう。自分で最適な方法を考えて実行しましょう。</p>
                     </div>
                 </div>
-                <span class="arrow_icon">
-                <i class="fa-solid fa-circle-chevron-down fa-xl"></i>
-                </span>
-                <div class="about_step_content_item flexbox">
-                    <div class="about_step_content_item_body">
-                        <h4>報酬を受け取る</h4>
-                        <p>報酬はみのいろ内の「売上履歴」ページで確認できます。なお、事前に本人確認・口座情報の登録が必要となります。</p>
-                    </div>
-                </div>
             </div>
             <div class="iroiro">
-            <%= link_to "カラーコンサルタントとして登録する",new_registration_path(resource_name), class:"waves-effect waves-light btn-large regi-c" %>
+            <%= link_to "プランを作る",new_plan_path, class:"padding-r waves-effect waves-light btn-large regi-c" %>
             <div class="about_andmore">
             <%= link_to "お客様はこちら",explanations_customer_path,class:"waves-effect waves-light btn cus-kochira" %>
             </div>

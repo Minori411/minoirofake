@@ -7,7 +7,8 @@ user.skip_confirmation!
 user.save!
 
 10.times do |n|
-  User.create!(userstyle: 1,
+  User.create!(id: n+2,
+               userstyle: 1,
                prefecture: "神奈川県",
                introduction: "こんにちは",
                url: "aaa",
@@ -18,7 +19,7 @@ user.save!
                password_confirmation: "minori1234#{n + 1}",
                disability_passport: "www",
                certificate: "sss",
-               image: "B000.jpeg",
+               image: "B000.png",
                year: "20225月")
 end
 
@@ -27,31 +28,33 @@ User.all.each do |user|
                      can_do: "カップルコンサル",
                      youtube: "https://www.youtube.com/watch?v=KMaTIu7pxVM",
                      body: "こんにちは",
-                     status: "相談できます",
-                     consent: "承認なし",
                      user_id: user.id)
 end
 
 Plan.all.each do |plan|
   plan.smallplans.create!(plan_name: "夫婦関係について相談できます",
                           plan_detail: "夫婦のお悩み",
-                          price: 1000,
+                          price: [1000,2000,3000,4000,5000].sample,
                           video: false,
                           chat: false,
                           user_id: plan.user_id,
                           plan_id: plan.id)
 end
 
+9.times do |n|
 Review.create(body: "知りたいことが知れました。とてもいい経験になりました。",
               name: "林みのり",
-              reviewer_id: 1,
-              reviewee_id: 2,
-              user_id: 2,
-              evaluation: 5)
+              reviewer_id: n+1,
+              reviewee_id: n,
+              user_id: n,
+              evaluation: [1,2,3,4,5].sample)
+end
 
-Article.create!(subject: "最近の相談",
+User.all.each do |user|
+user.articles.create!(subject: "最近の相談",
                 body: "最近の相談は夫婦関係が多いです",
-                user_id: 2)
+                user_id: user.id)
+end
 
 Room.create!(
   [
@@ -62,26 +65,6 @@ Room.create!(
       id: 2
     }
   ]
-)
-
-Message.create!(
-  [
-    {
-      user_id: 1,
-      room_id: 1,
-      body: "初めまして"
-    },
-    {
-      user_id: 2,
-      room_id: 2,
-      body: "相談したいことがあります"
-    }
-  ]
-)
-
-Relationship.create!(
-  following_id: 1,
-  follower_id: 2
 )
 
 Bottle.create!(

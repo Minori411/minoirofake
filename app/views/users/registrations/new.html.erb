@@ -28,8 +28,8 @@
                             <p><%= f.label :パスワード（英数字8文字以上）%></p>
                         </div>
                         <div class="input_body">
-                            <%= f.password_field :password, autocomplete: "new-password" %>                               
-                            <i class="fa icon_eye fa-eye"></i>
+                            <%= f.password_field :password, autocomplete: "new-password",id: "password" %>                               
+                            <i class="fa icon_eye fa-eye" data-target-element="password"></i>
                         </div>
                     </div>
                     <div class="form_item">
@@ -37,8 +37,8 @@
                             <p><%= f.label :確認用パスワード %></p>
                         </div>
                         <div class="input_body">
-                            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-                            <i class="fa icon_eye fa-eye"></i>
+                            <%= f.password_field :password_confirmation, autocomplete: "new-password", id: "passwordConfirm"%>
+                            <i class="fa icon_eye fa-eye" data-target-element="passwordConfirm"></i>
                         </div>
                     </div>
                     <div class="register-select">
@@ -53,21 +53,6 @@
                             <%= f.radio_button :userstyle, value=1, class:"with-gap" %>
                             <%= f.label :コンサルタントとして %>
                         </label>
-                        </p>
-                    </div>
-                    <div class="checkbox_area flexbox">
-                        <p class="checkbox_content mt-4">
-                            <span class="checkbox_wrapper">
-                                <label>
-                                    <span>
-                                    <%= f.check_box :is_kiyaku, id: "is_guideline", :as =>:boolean, class:"kiyaku",checked:false %>
-                                        <a href="#" target="_blank">利用規約</a>
-                                            と
-                                        <a href="#" target="_blank">個人情報保護法</a>
-                                            に同意します。
-                                    </span>
-                                </label>
-                            </span>
                         </p>
                     </div>
                     <div class="submit_buttons">

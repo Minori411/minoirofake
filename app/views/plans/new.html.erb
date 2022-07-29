@@ -3,16 +3,6 @@
 <div class="js-plan-edit back_white inner p-t3 dashContent">
         <div class="dashContent_right">
             <h1>コンサルタントプラン編集／追加</h1>
-            <div class="alert alert-info">
-                <p>
-                    <i class="fas fa-info-circle"></i>
-                    プランの公開には運営チームによる確認が必要です。
-                    <a href="#">規約</a>
-                    ・
-                    <a href="#">ガイドライン</a>
-                    に抵触していないか確認後、公開されます。
-                </p>
-            </div>
             <div id="vapp"></div>
                 <input name="_token" type="hidden">
                 <div class="boxbaseP30 plan_field plan_module z-depth-1">
@@ -72,7 +62,7 @@
                 </div>
     <div class="plan_area">
     <%= f.fields_for :smallplans do |smallfields| %>
-    <div class="boxbaseP30 plan_module js-addfield-block"  data-index: "<%= smallfields.index %>" flex-wrap planbox m-b-20 z-depth-1" style="padding: 30px">
+    <div class="boxbaseP30 plan_module js-addfield-block"  data-index: "<%= smallfields.index %>" flex-wrap planbox m-b-20 z-depth-1" style="padding: 20px">
     <div class="left ">
         <%= smallfields.text_field :plan_name ,:placeholder=>"チャットでの相談" %>
     </div>
@@ -104,32 +94,9 @@
     </div>
     <% end %>
     </div>
-
-                            <%= f.button "さらにプランを追加する",type: :button, class:"waves-light btn-large btn-custom5 add-form-btn"%>
-                        </div>
-                    </div>
-                </div>
-                <!--ステータス-->
-                <div class="boxbaseP30 plan_module z-depth-1">
-                    <div class="in">
-                        <div class="status_unit">
-                            <div class="status_unit_head flexbox">
-                                <%= f.label :status,"ステータス", class:"status_unit_head_label" %>
-                                <%= f.select :status, [['相談できます', 1], ['今、忙しいです', 2],['表示しない', 3]], { include_blank: true, selected: 1 } %>      
-                            </div>
-                            <div class="status_unit_head_body">
-                                <p class="small">今、忙しいです : コンサルタント一覧には表示されますが契約できなくなります</p>
-                                <p class="small">表示しない : コンサルタント一覧に表示されなくなります</p>
-                            </div>
-                        </div>
-                        <div class="status_unit">
-                            <div class="status_unit_head flexbox">
-                                <h3 class="status_unit_head_label">コンセント</h3>
-                                <%= f.select :consent, [['承認なし', 1], ['承認あり', 2]], { include_blank: true, selected: 1 } %>
-                            </div>
-                            <div class="status_unit_head_body">
-                                <p class="small">承認あり : コンサルタントが契約を承認後のみ契約可能</p>
-                            </div>
+    <div class="addplan">                 
+        <%= f.button "さらにプランを追加する",type: :button, class:"waves-light btn-large btn-custom5 add-form-btn"%>
+    </div>
                         </div>
                     </div>
                 </div>
@@ -137,7 +104,6 @@
                 <div class="boxbaseP30 plan_module plan_module_submit z-depth-1">
                     <div class="plan_module_submit_buttons alignCenter center">
                         <div class="main_button flexbox">
-                            <a class="waves-effect waves-light btn-large custom-btn">下書き</a>
                             <%= f.submit "コンサルティングプランを提出する",type: :submit,class:"waves-effect waves-light btn-large custom-btn2" %>
                         </div>
                     </div>

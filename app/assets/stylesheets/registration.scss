@@ -3,6 +3,7 @@
     background: #ff6e00;
     font-weight: 700;
     border-radius: 4px;
+    font-size: 20px;
 
     &:hover {
         background:darken(#ff6e00, 20%);
@@ -46,7 +47,6 @@
 }
 
 .user-icon {
-    margin-left: 10px;
     margin-top: 7px;
 }
 

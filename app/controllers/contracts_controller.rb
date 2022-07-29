@@ -7,12 +7,13 @@ class ContractsController < ApplicationController
     if @reviews.present?
       @avg_score = @reviews.average(:evaluation).present? ? @reviews.average(:evaluation).round(2) : 0
       @avg_review = @plan.user.reviews.average(:evaluation).round(2)
-
+      @avg_score_percentage = @reviews.average(:evaluation).round(1).to_f * 100 / 5
     else
       @avg_score = 0
       @avg_score_percentage = 0
       @avg_review = 0
     end
+    @min_price = @plan.smallplans.minimum(:price)
     @current_entry = Entry.where(user_id: current_user.id)
     @another_entry = Entry.where(user_id: @user.id)
     @room = Room.new
@@ -44,8 +45,6 @@ class ContractsController < ApplicationController
       user_id: @plan.user_id
     )
 
-    # @contract.user_id = @plan.user_id
-
     if @contract.save! # もし保存ができたら
       logger.debug("成功")
       redirect_to plan_contract_path(@plan.id, @contract.id) # 投稿画面に遷移
@@ -57,6 +56,7 @@ class ContractsController < ApplicationController
   end
 
   def show
+    @smallplan = Smallplan.find(params[:id])
     @plan = Plan.find(params[:plan_id])
     @user = User.find(@plan.user_id)
     @reviews = @user.reviews.order("created_at DESC")
@@ -65,12 +65,13 @@ class ContractsController < ApplicationController
     if @reviews.present?
       @avg_score = @reviews.average(:evaluation).present? ? @reviews.average(:evaluation).round(2) : 0
       @avg_review = @plan.user.reviews.average(:evaluation).round(2)
+      @avg_score_percentage = @reviews.average(:evaluation).round(1).to_f * 100 / 5
     else
       @avg_score = 0
       @avg_score_percentage = 0
       @avg_review = 0
     end
-
+    @min_price = @plan.smallplans.minimum(:price)
     @current_entry = Entry.where(user_id: current_user.id)
     @another_entry = Entry.where(user_id: @user.id)
     @room = Room.new

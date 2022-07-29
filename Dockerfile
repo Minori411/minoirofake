@@ -1,5 +1,7 @@
 FROM ruby:3.1.2
 RUN apt-get update -qq && apt-get install -y nodejs
+ARG RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
 
 # yarnパッケージ管理ツールをインストール
 # https://classic.yarnpkg.com/en/docs/install/#debian-stable
@@ -9,10 +11,10 @@ RUN apt-get update && apt-get install yarn
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev mariadb-client nodejs
 
 WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
-RUN bundle install
 COPY . /myapp
+RUN bundle install
+RUN yarn install
+RUN RAILS_ENV=production SECRET_KEY_BASE=1 bundle exec rails assets:precompile
 
 # Add a script to be executed every time the container starts
 COPY entrypoint.sh /usr/bin/
